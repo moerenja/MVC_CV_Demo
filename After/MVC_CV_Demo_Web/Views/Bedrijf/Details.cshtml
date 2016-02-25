@@ -1,0 +1,26 @@
+﻿@model MVC_CV_Demo_Domein.BedrijfModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BedrijfModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bedrijfsnaam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bedrijfsnaam)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BedrijfsId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

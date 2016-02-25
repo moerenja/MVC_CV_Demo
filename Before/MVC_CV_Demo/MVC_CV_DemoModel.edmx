@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MVC_CV_DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bedrijf">
+          <Key>
+            <PropertyRef Name="BedrijfsId" />
+          </Key>
+          <Property Name="BedrijfsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bedrijfsnaam" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CVItem">
+          <Key>
+            <PropertyRef Name="CVItemId" />
+          </Key>
+          <Property Name="CVItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersoonID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Functienaam" Type="nvarchar" MaxLength="50" />
+          <Property Name="PeriodeVan" Type="datetime" Nullable="false" />
+          <Property Name="PeriodeTot" Type="datetime" Nullable="false" />
+          <Property Name="Beschrijving" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BedrijfsID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persoon">
+          <Key>
+            <PropertyRef Name="PersoonId" />
+          </Key>
+          <Property Name="PersoonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Voornaam" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Voorvoegsels" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CVItem_Bedrijf">
+          <End Role="Bedrijf" Type="Self.Bedrijf" Multiplicity="1" />
+          <End Role="CVItem" Type="Self.CVItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bedrijf">
+              <PropertyRef Name="BedrijfsId" />
+            </Principal>
+            <Dependent Role="CVItem">
+              <PropertyRef Name="BedrijfsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVItem_Persoon">
+          <End Role="Persoon" Type="Self.Persoon" Multiplicity="1" />
+          <End Role="CVItem" Type="Self.CVItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persoon">
+              <PropertyRef Name="PersoonId" />
+            </Principal>
+            <Dependent Role="CVItem">
+              <PropertyRef Name="PersoonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVC_CV_DemoModelStoreContainer">
+          <EntitySet Name="Bedrijf" EntityType="Self.Bedrijf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CVItem" EntityType="Self.CVItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persoon" EntityType="Self.Persoon" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CVItem_Bedrijf" Association="Self.FK_CVItem_Bedrijf">
+            <End Role="Bedrijf" EntitySet="Bedrijf" />
+            <End Role="CVItem" EntitySet="CVItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVItem_Persoon" Association="Self.FK_CVItem_Persoon">
+            <End Role="Persoon" EntitySet="Persoon" />
+            <End Role="CVItem" EntitySet="CVItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVC_CV_DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bedrijf">
+          <Key>
+            <PropertyRef Name="BedrijfsId" />
+          </Key>
+          <Property Name="BedrijfsId" Type="Guid" Nullable="false" />
+          <Property Name="Bedrijfsnaam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CVItem" Relationship="Self.FK_CVItem_Bedrijf" FromRole="Bedrijf" ToRole="CVItem" />
+        </EntityType>
+        <EntityType Name="CVItem">
+          <Key>
+            <PropertyRef Name="CVItemId" />
+          </Key>
+          <Property Name="CVItemId" Type="Guid" Nullable="false" />
+          <Property Name="PersoonID" Type="Guid" Nullable="false" />
+          <Property Name="Functienaam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PeriodeVan" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PeriodeTot" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Beschrijving" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BedrijfsID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Bedrijf" Relationship="Self.FK_CVItem_Bedrijf" FromRole="CVItem" ToRole="Bedrijf" />
+          <NavigationProperty Name="Persoon" Relationship="Self.FK_CVItem_Persoon" FromRole="CVItem" ToRole="Persoon" />
+        </EntityType>
+        <EntityType Name="Persoon">
+          <Key>
+            <PropertyRef Name="PersoonId" />
+          </Key>
+          <Property Name="PersoonId" Type="Guid" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Voornaam" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Voorvoegsels" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CVItem" Relationship="Self.FK_CVItem_Persoon" FromRole="Persoon" ToRole="CVItem" />
+        </EntityType>
+        <Association Name="FK_CVItem_Bedrijf">
+          <End Role="Bedrijf" Type="Self.Bedrijf" Multiplicity="1" />
+          <End Role="CVItem" Type="Self.CVItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bedrijf">
+              <PropertyRef Name="BedrijfsId" />
+            </Principal>
+            <Dependent Role="CVItem">
+              <PropertyRef Name="BedrijfsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVItem_Persoon">
+          <End Role="Persoon" Type="Self.Persoon" Multiplicity="1" />
+          <End Role="CVItem" Type="Self.CVItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persoon">
+              <PropertyRef Name="PersoonId" />
+            </Principal>
+            <Dependent Role="CVItem">
+              <PropertyRef Name="PersoonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVC_CV_DemoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bedrijf" EntityType="Self.Bedrijf" />
+          <EntitySet Name="CVItem" EntityType="Self.CVItem" />
+          <EntitySet Name="Persoon" EntityType="Self.Persoon" />
+          <AssociationSet Name="FK_CVItem_Bedrijf" Association="Self.FK_CVItem_Bedrijf">
+            <End Role="Bedrijf" EntitySet="Bedrijf" />
+            <End Role="CVItem" EntitySet="CVItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVItem_Persoon" Association="Self.FK_CVItem_Persoon">
+            <End Role="Persoon" EntitySet="Persoon" />
+            <End Role="CVItem" EntitySet="CVItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVC_CV_DemoModelStoreContainer" CdmEntityContainer="MVC_CV_DemoEntities">
+          <EntitySetMapping Name="Bedrijf">
+            <EntityTypeMapping TypeName="MVC_CV_DemoModel.Bedrijf">
+              <MappingFragment StoreEntitySet="Bedrijf">
+                <ScalarProperty Name="BedrijfsId" ColumnName="BedrijfsId" />
+                <ScalarProperty Name="Bedrijfsnaam" ColumnName="Bedrijfsnaam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CVItem">
+            <EntityTypeMapping TypeName="MVC_CV_DemoModel.CVItem">
+              <MappingFragment StoreEntitySet="CVItem">
+                <ScalarProperty Name="CVItemId" ColumnName="CVItemId" />
+                <ScalarProperty Name="PersoonID" ColumnName="PersoonID" />
+                <ScalarProperty Name="Functienaam" ColumnName="Functienaam" />
+                <ScalarProperty Name="PeriodeVan" ColumnName="PeriodeVan" />
+                <ScalarProperty Name="PeriodeTot" ColumnName="PeriodeTot" />
+                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+                <ScalarProperty Name="BedrijfsID" ColumnName="BedrijfsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persoon">
+            <EntityTypeMapping TypeName="MVC_CV_DemoModel.Persoon">
+              <MappingFragment StoreEntitySet="Persoon">
+                <ScalarProperty Name="PersoonId" ColumnName="PersoonId" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Voornaam" ColumnName="Voornaam" />
+                <ScalarProperty Name="Voorvoegsels" ColumnName="Voorvoegsels" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

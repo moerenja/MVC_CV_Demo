@@ -1,0 +1,7 @@
+﻿@using System.Globalization
+@model DateTime
+
+@{
+    @Html.LabelFor(m => m, string.Format(CultureInfo.CurrentCulture, "{0:dd-MM-yyyy}", Model))
+}
+

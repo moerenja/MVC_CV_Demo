@@ -1,0 +1,72 @@
+﻿@model MVC_CV_Demo_Domein.CVItemModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CVItemModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Ingezette collega
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persoon.Voornaam)
+            @if (Model.Persoon.Voorvoegsels != null && (Model.Persoon.Voorvoegsels) != string.Empty)
+            {
+                @Html.DisplayFor(model => model.Persoon.Voorvoegsels)
+            }
+            @Html.DisplayFor(model => model.Persoon.Naam)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Functienaam)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Functienaam)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PeriodeVan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PeriodeVan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PeriodeTot)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PeriodeTot)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Beschrijving)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Beschrijving)
+            </dd>
+
+            <dt>
+                Opdrachtgever
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Bedrijf.Bedrijfsnaam)
+            </dd>
+
+        </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MVC_CV_Demo_Domein.CVItemModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Persoon.Naam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Functienaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodeVan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodeTot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bedrijf.Bedrijfsnaam)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Persoon.Naam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Functienaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodeVan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodeTot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bedrijf.Bedrijfsnaam)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CVItemId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CVItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CVItemId })
+        </td>
+    </tr>
+}
+
+</table>

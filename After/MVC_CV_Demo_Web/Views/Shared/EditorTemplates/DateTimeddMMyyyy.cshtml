@@ -1,0 +1,9 @@
+﻿@using System.Globalization
+@model DateTime?
+
+@{
+    IDictionary<string, object> htmlAttributes = new RouteValueDictionary();
+    htmlAttributes.Add("type", "date");
+
+    @Html.TextBoxFor(m => m, string.Format(CultureInfo.InvariantCulture, "{0:dd-MM-yyyy}", Model), htmlAttributes)
+}

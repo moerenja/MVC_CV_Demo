@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MVC_CV_Demo_Domein.PersoonModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Volledige naam
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Voornaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Voorvoegsels)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Naam)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Voornaam) @Html.DisplayFor(modelItem => item.Voorvoegsels) @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voornaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voorvoegsels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PersoonId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PersoonId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PersoonId })
+            </td>
+        </tr>
+    }
+
+</table>
